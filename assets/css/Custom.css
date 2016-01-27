@@ -1,0 +1,16 @@
+﻿
+.customform-heading {
+    font-size: 24px;
+    text-align: center;
+    margin-top: -10px;
+    font-weight: bold;
+}
+
+.CustomBorderdForm{
+    border:1px solid #DADADA;
+}
+
+.rightborder
+{
+    border-right:1px solid #DADADA;
+}

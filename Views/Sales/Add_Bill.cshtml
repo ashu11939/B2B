@@ -1,0 +1,219 @@
+﻿
+@{
+    ViewBag.Title = "Add_Bill";
+}
+<!-- Current Page Js files -->
+<script src="~/Scripts/Add_Bill.js"></script>
+<script>
+
+    function Select_Customer() {
+        
+        var customer_ID = $('#Customer_Name').val();
+        $.ajax({
+
+            url: '/Sales/Customer_Details',
+            type: 'POST',
+            data: '{"ID":"' + customer_ID + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            cache: false,
+            success: function (list) {
+
+                $('#Customer_Address').val($('#Customer_Address').val() + list[0].Billing_Address);
+                $('#Customer_Route').val($('#Customer_Route').val() + list[0].Route);;
+                $('#Customer_Contact').val($('#Customer_Address').val() + list[0].Billing_Address);;
+                //emailID.
+            }
+        });
+    };
+</script>
+<form action="Sales_Submit" method="post">
+    <!-- Initial Customer Details For the Bill -->
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>Customer</label></br>
+                <select class="form-control"
+                        data-val="true" id="Customer_Name" name="txtCustomer_Name" tabindex="-1" aria-hidden="true"
+                        data-placeholder="Select Customer" onchange="Select_Customer()">
+                    <option value="">Select Customer</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label>Address</label></br>
+            <input id="Customer_Address" class="form-control" />
+        </div>
+
+        <div class="col-md-2">
+            <label>Contact</label></br>
+            <input id="Customer_Contact" class="form-control" />
+        </div>
+
+        <div class="col-md-2">
+            <label>Date</label></br>
+            <input id="Customer_Date" name="txtDateOfSale" class="form-control" />
+        </div>
+
+        <div class="col-md-2">
+            <label>Salesman</label></br>
+            <input id="Customer_Salesman" name="txtSalesman" class="form-control" />
+        </div>
+
+        <div class="col-md-3">
+            <label>Route</label></br>
+            <input id="Customer_Route" class="form-control" />
+        </div>
+
+    </div>
+
+    <!-- Bill Calculation Part -->
+    <div class="row">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Product Entries
+                    </header>
+                    <table class="table table-striped table-advance table-hover ">
+                        <thead>
+                            <tr>
+                                <th><i class="icon-bullhorn"></i> Product Name </th>
+                                <th><i class="icon-question-sign"></i> Qty </th>
+                                <th class="hidden-phone"><i class="icon-bookmark"></i> Free </th>
+                                <th><i class=" icon-edit"></i> Rate </th>
+                                <th class="hidden-phone"><i class="icon-bullhorn"></i> Discount </th>
+                                <th class="hidden-phone"><i class="icon-bullhorn"></i> VAT % </th>
+                                <th><i class="icon-bullhorn"></i> Amount </th>
+                                <th>Action </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="Purchase_Table"></tbody>
+                    </table>
+                </section>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="Product">Product Name</label> <br />
+                    <select class="form-control"
+                            data-val="true" data-val-number="The field DepotId must be a number."
+                            data-val-required="The DepotId field is required." id="Product_Name" name="Product_Name" tabindex="-1" aria-hidden="true"
+                            data-placeholder="Select Product">
+                        <option value="">Select Product</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label for="NoOfHelper">Quantity</label>
+                    <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Qty" name="Qty" placeholder="Quantity" type="number" value="0">
+                    <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label for="NoOfHelper">Free</label>
+                    <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Free" name="Free" placeholder="Free Product" type="number" value="0">
+                    <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label for="NoOfHelper">P.Rate</label>
+                    <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Rate" name="Rate" placeholder="Rate of the product" type="number" step="any" value="0">
+                    <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label for="AppWeight">Discount</label>
+                    <input class="form-control" data-val="true" data-val-number="The field AppWeight must be a number." data-val-required="The AppWeight field is required." id="Discount" name="Discount" placeholder="Discount on Product" type="number" step="any" value="0">
+                    <span class="field-validation-valid" data-valmsg-for="AppWeight" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label for="NoOfHelper">% VAT</label>
+                    <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="VAT" name="VAT" placeholder="VAT on Product" type="number" step="any" value="0">
+                    <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+
+                <div class="form-group">
+                    <br />
+                    <button type="button" id="Add_Product" class="btn btn-success" style="width:150px;"><i class="icon-cloud-upload"></i> Add Product</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-2">
+                <label>Total Amount</label>
+                <input id="Total_Amount" name="txtTotal_Amount" class="form-control"></td>
+            </div>
+                
+            <div class="col-lg-2">
+                <label>Cash Payment</label>
+                <input id="Cash_Payment" name="txtCash_Payment" class="form-control"></td>
+            </div>
+
+            <div class="col-lg-2">
+                <label>Dues </label>
+                <input id="Dues" name="txtDues" class="form-control"></td>
+            </div>
+            
+            <div class="col-lg-2">
+                <label>Advance </label>
+                <input id="Advance" name="txtAdvance" class="form-control"></td>
+            </div>
+        
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <button type="submit" id="Submit_Purchase" class="btn btn-primary" style="width:150px;"><i class="icon-refresh"></i> Submit</button>
+                </div>
+            </div>
+        </div>
+
+
+</div>
+
+
+
+
+
+</form>
+
+
+
+
+
+<!-- For Search & Select -->
+<link href="~/assets/css/select2.min.css" rel="stylesheet" />
+<script src="~/Scripts/select2.min.js"></script>
+<!-- Date Picker For All Pages.-->
+<script src="~/assets/js/bootstrap-datepicker.js"></script>
+<script>
+        $('#Customer_Date').datepicker();
+        $('select').select2();
+
+</script>

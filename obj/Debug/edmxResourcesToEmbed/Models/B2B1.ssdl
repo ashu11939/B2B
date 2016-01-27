@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VishnuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_Channel_Type' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_Channel_Type">
+          <Property Name="Channel_Type_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Channel_Type_Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_Company' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_Company">
+          <Property Name="cid" Type="nvarchar" MaxLength="255" />
+          <Property Name="Company_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Registration_No" Type="nvarchar" MaxLength="255" />
+          <Property Name="DateOfJoining" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address_Office" Type="nvarchar" MaxLength="255" />
+          <Property Name="Contact" Type="nvarchar" MaxLength="255" />
+          <Property Name="Address_Godown" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_Customer' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_Customer">
+          <Property Name="Customer_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Customer_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Customer_Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="Channel_Type" Type="nvarchar" MaxLength="255" />
+          <Property Name="Loyalty_Program" Type="nvarchar" MaxLength="255" />
+          <Property Name="Billing_Address" Type="nvarchar" MaxLength="255" />
+          <Property Name="Beat" Type="nvarchar" MaxLength="255" />
+          <Property Name="Salesman" Type="nvarchar" MaxLength="255" />
+          <Property Name="Active" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_CustomerType' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_CustomerType">
+          <Property Name="Customer_Type_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Customer_Type_Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_Invoice' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_Invoice">
+          <Property Name="Invoice_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="cid" Type="nvarchar" MaxLength="255" />
+          <Property Name="DateOfPurchase" Type="nvarchar" MaxLength="255" />
+          <Property Name="Vat" Type="nvarchar" MaxLength="255" />
+          <Property Name="Duty" Type="nvarchar" MaxLength="255" />
+          <Property Name="Grand_Total" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_Invoice_Product' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_Invoice_Product">
+          <Property Name="id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Prod_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Invoice_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Quantity" Type="nvarchar" MaxLength="255" />
+          <Property Name="Unit" Type="nvarchar" MaxLength="255" />
+          <Property Name="Mfg_Date" Type="nvarchar" MaxLength="255" />
+          <Property Name="Rate" Type="nvarchar" MaxLength="255" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="255" />
+          <Property Name="Exp_Date" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_Loyalty_Program' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_Loyalty_Program">
+          <Property Name="Loyalty_Program_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Loyalty_Program_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Profit_On_CP" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_Product' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_Product">
+          <Property Name="Prod_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="cid" Type="nvarchar" MaxLength="255" />
+          <Property Name="Product_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Category_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="MRP" Type="nvarchar" MaxLength="255" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="255" />
+          <Property Name="Active" Type="nvarchar" MaxLength="255" />
+          <Property Name="Expiry_Date_Months" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'Vishnu.dbo.DB_Product_Log' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DB_Product_Log">
+          <Property Name="id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Prod_Id" Type="nvarchar" MaxLength="255" />
+          <Property Name="Stock_Live" Type="nvarchar" MaxLength="255" />
+          <Property Name="Stock_Total_Incoming" Type="nvarchar" MaxLength="255" />
+          <Property Name="Stock_Total_Outgoing" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <EntityContainer Name="VishnuModel1StoreContainer" />
+</Schema>

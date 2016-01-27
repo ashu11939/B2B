@@ -1,0 +1,633 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BusiCloudModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DB_Channel_Type">
+          <Key>
+            <PropertyRef Name="Channel_Type_Id" />
+          </Key>
+          <Property Name="Channel_Type_Id" Type="int" Nullable="false" />
+          <Property Name="Channel_Type_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DB_Company">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="int" Nullable="false" />
+          <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Registration_No" Type="varchar" MaxLength="50" />
+          <Property Name="DateOfJoining" Type="date" />
+          <Property Name="Address_Office" Type="varchar" MaxLength="50" />
+          <Property Name="Contact" Type="varchar" MaxLength="50" />
+          <Property Name="Address_Godown" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DB_Customer">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="int" Nullable="false" />
+          <Property Name="Cutomer_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Customer_Type" Type="int" />
+          <Property Name="Channel_Type" Type="int" />
+          <Property Name="Loyalty_Program" Type="int" />
+          <Property Name="Billing_Address" Type="varchar" MaxLength="50" />
+          <Property Name="Route" Type="int" />
+          <Property Name="Salesman" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="DB_Customer_Type">
+          <Key>
+            <PropertyRef Name="Customer_Type_Id" />
+          </Key>
+          <Property Name="Customer_Type_Id" Type="int" Nullable="false" />
+          <Property Name="Customer_Type_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DB_Invoice">
+          <Key>
+            <PropertyRef Name="Invoice_Id" />
+          </Key>
+          <Property Name="Invoice_Id" Type="int" Nullable="false" />
+          <Property Name="cid" Type="int" />
+          <Property Name="DateOfPurchase" Type="date" />
+          <Property Name="Vat" Type="float" />
+          <Property Name="Duty" Type="float" />
+          <Property Name="Grand_Total" Type="float" />
+        </EntityType>
+        <EntityType Name="DB_Invoice_Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Prod_Id" Type="int" />
+          <Property Name="Invoice_Id" Type="int" />
+          <Property Name="Quantity" Type="float" />
+          <Property Name="Unit" Type="varchar" MaxLength="50" />
+          <Property Name="Mfg_Date" Type="date" />
+          <Property Name="Rate" Type="float" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="Exp_Date" Type="date" />
+        </EntityType>
+        <EntityType Name="DB_Loyalty_Program">
+          <Key>
+            <PropertyRef Name="Loyalty_Program_Id" />
+          </Key>
+          <Property Name="Loyalty_Program_Id" Type="int" Nullable="false" />
+          <Property Name="Loyalty_Program_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Profit_On_CP" Type="float" />
+        </EntityType>
+        <EntityType Name="DB_Product">
+          <Key>
+            <PropertyRef Name="Prod_Id" />
+          </Key>
+          <Property Name="Prod_Id" Type="int" Nullable="false" />
+          <Property Name="cid" Type="int" Nullable="false" />
+          <Property Name="Product_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Category_Name" Type="varchar" MaxLength="50" />
+          <Property Name="MRP" Type="float" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Expiry_Date_Months" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DB_Product_Log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Prod_Id" Type="int" Nullable="false" />
+          <Property Name="Stock_Live" Type="float" />
+          <Property Name="Stock_Total_Incoming" Type="float" />
+          <Property Name="Stock_Total_Outgoing" Type="float" />
+        </EntityType>
+        <Association Name="FK_DB_Customer_DB_Channel_Type">
+          <End Role="DB_Channel_Type" Type="Self.DB_Channel_Type" Multiplicity="0..1" />
+          <End Role="DB_Customer" Type="Self.DB_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Channel_Type">
+              <PropertyRef Name="Channel_Type_Id" />
+            </Principal>
+            <Dependent Role="DB_Customer">
+              <PropertyRef Name="Channel_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Customer_DB_Customer_Type">
+          <End Role="DB_Customer_Type" Type="Self.DB_Customer_Type" Multiplicity="0..1" />
+          <End Role="DB_Customer" Type="Self.DB_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Customer_Type">
+              <PropertyRef Name="Customer_Type_Id" />
+            </Principal>
+            <Dependent Role="DB_Customer">
+              <PropertyRef Name="Customer_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Customer_DB_Loyalty_Program">
+          <End Role="DB_Loyalty_Program" Type="Self.DB_Loyalty_Program" Multiplicity="0..1" />
+          <End Role="DB_Customer" Type="Self.DB_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Loyalty_Program">
+              <PropertyRef Name="Loyalty_Program_Id" />
+            </Principal>
+            <Dependent Role="DB_Customer">
+              <PropertyRef Name="Loyalty_Program" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Invoice_DB_Company">
+          <End Role="DB_Company" Type="Self.DB_Company" Multiplicity="0..1" />
+          <End Role="DB_Invoice" Type="Self.DB_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Company">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="DB_Invoice">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Invoice_Product_DB_Invoice">
+          <End Role="DB_Invoice" Type="Self.DB_Invoice" Multiplicity="0..1" />
+          <End Role="DB_Invoice_Product" Type="Self.DB_Invoice_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Invoice">
+              <PropertyRef Name="Invoice_Id" />
+            </Principal>
+            <Dependent Role="DB_Invoice_Product">
+              <PropertyRef Name="Invoice_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Invoice_Product_DB_Invoice_Product">
+          <End Role="DB_Product" Type="Self.DB_Product" Multiplicity="0..1" />
+          <End Role="DB_Invoice_Product" Type="Self.DB_Invoice_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Product">
+              <PropertyRef Name="Prod_Id" />
+            </Principal>
+            <Dependent Role="DB_Invoice_Product">
+              <PropertyRef Name="Prod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Product_DB_Company">
+          <End Role="DB_Company" Type="Self.DB_Company" Multiplicity="1" />
+          <End Role="DB_Product" Type="Self.DB_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Company">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="DB_Product">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Product_Log_DB_Product">
+          <End Role="DB_Product" Type="Self.DB_Product" Multiplicity="1" />
+          <End Role="DB_Product_Log" Type="Self.DB_Product_Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Product">
+              <PropertyRef Name="Prod_Id" />
+            </Principal>
+            <Dependent Role="DB_Product_Log">
+              <PropertyRef Name="Prod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BusiCloudModelStoreContainer">
+          <EntitySet Name="DB_Channel_Type" EntityType="Self.DB_Channel_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_Company" EntityType="Self.DB_Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_Customer" EntityType="Self.DB_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_Customer_Type" EntityType="Self.DB_Customer_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_Invoice" EntityType="Self.DB_Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_Invoice_Product" EntityType="Self.DB_Invoice_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_Loyalty_Program" EntityType="Self.DB_Loyalty_Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_Product" EntityType="Self.DB_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DB_Product_Log" EntityType="Self.DB_Product_Log" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DB_Customer_DB_Channel_Type" Association="Self.FK_DB_Customer_DB_Channel_Type">
+            <End Role="DB_Channel_Type" EntitySet="DB_Channel_Type" />
+            <End Role="DB_Customer" EntitySet="DB_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Customer_DB_Customer_Type" Association="Self.FK_DB_Customer_DB_Customer_Type">
+            <End Role="DB_Customer_Type" EntitySet="DB_Customer_Type" />
+            <End Role="DB_Customer" EntitySet="DB_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Customer_DB_Loyalty_Program" Association="Self.FK_DB_Customer_DB_Loyalty_Program">
+            <End Role="DB_Loyalty_Program" EntitySet="DB_Loyalty_Program" />
+            <End Role="DB_Customer" EntitySet="DB_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Invoice_DB_Company" Association="Self.FK_DB_Invoice_DB_Company">
+            <End Role="DB_Company" EntitySet="DB_Company" />
+            <End Role="DB_Invoice" EntitySet="DB_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Invoice_Product_DB_Invoice" Association="Self.FK_DB_Invoice_Product_DB_Invoice">
+            <End Role="DB_Invoice" EntitySet="DB_Invoice" />
+            <End Role="DB_Invoice_Product" EntitySet="DB_Invoice_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Invoice_Product_DB_Invoice_Product" Association="Self.FK_DB_Invoice_Product_DB_Invoice_Product">
+            <End Role="DB_Product" EntitySet="DB_Product" />
+            <End Role="DB_Invoice_Product" EntitySet="DB_Invoice_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Product_DB_Company" Association="Self.FK_DB_Product_DB_Company">
+            <End Role="DB_Company" EntitySet="DB_Company" />
+            <End Role="DB_Product" EntitySet="DB_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Product_Log_DB_Product" Association="Self.FK_DB_Product_Log_DB_Product">
+            <End Role="DB_Product" EntitySet="DB_Product" />
+            <End Role="DB_Product_Log" EntitySet="DB_Product_Log" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BusiCloudModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DB_Channel_Type">
+          <Key>
+            <PropertyRef Name="Channel_Type_Id" />
+          </Key>
+          <Property Name="Channel_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Channel_Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DB_Customer" Relationship="Self.FK_DB_Customer_DB_Channel_Type" FromRole="DB_Channel_Type" ToRole="DB_Customer" />
+        </EntityType>
+        <EntityType Name="DB_Company">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="Int32" Nullable="false" />
+          <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Registration_No" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfJoining" Type="DateTime" Precision="0" />
+          <Property Name="Address_Office" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Godown" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DB_Invoice" Relationship="Self.FK_DB_Invoice_DB_Company" FromRole="DB_Company" ToRole="DB_Invoice" />
+          <NavigationProperty Name="DB_Product" Relationship="Self.FK_DB_Product_DB_Company" FromRole="DB_Company" ToRole="DB_Product" />
+        </EntityType>
+        <EntityType Name="DB_Customer">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cutomer_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_Type" Type="Int32" />
+          <Property Name="Channel_Type" Type="Int32" />
+          <Property Name="Loyalty_Program" Type="Int32" />
+          <Property Name="Billing_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Route" Type="Int32" />
+          <Property Name="Salesman" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="DB_Channel_Type" Relationship="Self.FK_DB_Customer_DB_Channel_Type" FromRole="DB_Customer" ToRole="DB_Channel_Type" />
+          <NavigationProperty Name="DB_Customer_Type" Relationship="Self.FK_DB_Customer_DB_Customer_Type" FromRole="DB_Customer" ToRole="DB_Customer_Type" />
+          <NavigationProperty Name="DB_Loyalty_Program" Relationship="Self.FK_DB_Customer_DB_Loyalty_Program" FromRole="DB_Customer" ToRole="DB_Loyalty_Program" />
+        </EntityType>
+        <EntityType Name="DB_Customer_Type">
+          <Key>
+            <PropertyRef Name="Customer_Type_Id" />
+          </Key>
+          <Property Name="Customer_Type_Id" Type="Int32" Nullable="false" />
+          <Property Name="Customer_Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DB_Customer" Relationship="Self.FK_DB_Customer_DB_Customer_Type" FromRole="DB_Customer_Type" ToRole="DB_Customer" />
+        </EntityType>
+        <EntityType Name="DB_Invoice">
+          <Key>
+            <PropertyRef Name="Invoice_Id" />
+          </Key>
+          <Property Name="Invoice_Id" Type="Int32" Nullable="false" />
+          <Property Name="cid" Type="Int32" />
+          <Property Name="DateOfPurchase" Type="DateTime" Precision="0" />
+          <Property Name="Vat" Type="Double" />
+          <Property Name="Duty" Type="Double" />
+          <Property Name="Grand_Total" Type="Double" />
+          <NavigationProperty Name="DB_Company" Relationship="Self.FK_DB_Invoice_DB_Company" FromRole="DB_Invoice" ToRole="DB_Company" />
+          <NavigationProperty Name="DB_Invoice_Product" Relationship="Self.FK_DB_Invoice_Product_DB_Invoice" FromRole="DB_Invoice" ToRole="DB_Invoice_Product" />
+        </EntityType>
+        <EntityType Name="DB_Invoice_Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Prod_Id" Type="Int32" />
+          <Property Name="Invoice_Id" Type="Int32" />
+          <Property Name="Quantity" Type="Double" />
+          <Property Name="Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mfg_Date" Type="DateTime" Precision="0" />
+          <Property Name="Rate" Type="Double" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Exp_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DB_Invoice" Relationship="Self.FK_DB_Invoice_Product_DB_Invoice" FromRole="DB_Invoice_Product" ToRole="DB_Invoice" />
+          <NavigationProperty Name="DB_Product" Relationship="Self.FK_DB_Invoice_Product_DB_Invoice_Product" FromRole="DB_Invoice_Product" ToRole="DB_Product" />
+        </EntityType>
+        <EntityType Name="DB_Loyalty_Program">
+          <Key>
+            <PropertyRef Name="Loyalty_Program_Id" />
+          </Key>
+          <Property Name="Loyalty_Program_Id" Type="Int32" Nullable="false" />
+          <Property Name="Loyalty_Program_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Profit_On_CP" Type="Double" />
+          <NavigationProperty Name="DB_Customer" Relationship="Self.FK_DB_Customer_DB_Loyalty_Program" FromRole="DB_Loyalty_Program" ToRole="DB_Customer" />
+        </EntityType>
+        <EntityType Name="DB_Product">
+          <Key>
+            <PropertyRef Name="Prod_Id" />
+          </Key>
+          <Property Name="Prod_Id" Type="Int32" Nullable="false" />
+          <Property Name="cid" Type="Int32" Nullable="false" />
+          <Property Name="Product_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Category_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MRP" Type="Double" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Expiry_Date_Months" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DB_Company" Relationship="Self.FK_DB_Product_DB_Company" FromRole="DB_Product" ToRole="DB_Company" />
+          <NavigationProperty Name="DB_Invoice_Product" Relationship="Self.FK_DB_Invoice_Product_DB_Invoice_Product" FromRole="DB_Product" ToRole="DB_Invoice_Product" />
+          <NavigationProperty Name="DB_Product_Log" Relationship="Self.FK_DB_Product_Log_DB_Product" FromRole="DB_Product" ToRole="DB_Product_Log" />
+        </EntityType>
+        <EntityType Name="DB_Product_Log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Prod_Id" Type="Int32" Nullable="false" />
+          <Property Name="Stock_Live" Type="Double" />
+          <Property Name="Stock_Total_Incoming" Type="Double" />
+          <Property Name="Stock_Total_Outgoing" Type="Double" />
+          <NavigationProperty Name="DB_Product" Relationship="Self.FK_DB_Product_Log_DB_Product" FromRole="DB_Product_Log" ToRole="DB_Product" />
+        </EntityType>
+        <Association Name="FK_DB_Customer_DB_Channel_Type">
+          <End Role="DB_Channel_Type" Type="Self.DB_Channel_Type" Multiplicity="0..1" />
+          <End Role="DB_Customer" Type="Self.DB_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Channel_Type">
+              <PropertyRef Name="Channel_Type_Id" />
+            </Principal>
+            <Dependent Role="DB_Customer">
+              <PropertyRef Name="Channel_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Invoice_DB_Company">
+          <End Role="DB_Company" Type="Self.DB_Company" Multiplicity="0..1" />
+          <End Role="DB_Invoice" Type="Self.DB_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Company">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="DB_Invoice">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Product_DB_Company">
+          <End Role="DB_Company" Type="Self.DB_Company" Multiplicity="1" />
+          <End Role="DB_Product" Type="Self.DB_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Company">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="DB_Product">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Customer_DB_Customer_Type">
+          <End Role="DB_Customer_Type" Type="Self.DB_Customer_Type" Multiplicity="0..1" />
+          <End Role="DB_Customer" Type="Self.DB_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Customer_Type">
+              <PropertyRef Name="Customer_Type_Id" />
+            </Principal>
+            <Dependent Role="DB_Customer">
+              <PropertyRef Name="Customer_Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Customer_DB_Loyalty_Program">
+          <End Role="DB_Loyalty_Program" Type="Self.DB_Loyalty_Program" Multiplicity="0..1" />
+          <End Role="DB_Customer" Type="Self.DB_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Loyalty_Program">
+              <PropertyRef Name="Loyalty_Program_Id" />
+            </Principal>
+            <Dependent Role="DB_Customer">
+              <PropertyRef Name="Loyalty_Program" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Invoice_Product_DB_Invoice">
+          <End Role="DB_Invoice" Type="Self.DB_Invoice" Multiplicity="0..1" />
+          <End Role="DB_Invoice_Product" Type="Self.DB_Invoice_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Invoice">
+              <PropertyRef Name="Invoice_Id" />
+            </Principal>
+            <Dependent Role="DB_Invoice_Product">
+              <PropertyRef Name="Invoice_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Invoice_Product_DB_Invoice_Product">
+          <End Role="DB_Product" Type="Self.DB_Product" Multiplicity="0..1" />
+          <End Role="DB_Invoice_Product" Type="Self.DB_Invoice_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Product">
+              <PropertyRef Name="Prod_Id" />
+            </Principal>
+            <Dependent Role="DB_Invoice_Product">
+              <PropertyRef Name="Prod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DB_Product_Log_DB_Product">
+          <End Role="DB_Product" Type="Self.DB_Product" Multiplicity="1" />
+          <End Role="DB_Product_Log" Type="Self.DB_Product_Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DB_Product">
+              <PropertyRef Name="Prod_Id" />
+            </Principal>
+            <Dependent Role="DB_Product_Log">
+              <PropertyRef Name="Prod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BusiCloudEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DB_Channel_Type" EntityType="Self.DB_Channel_Type" />
+          <EntitySet Name="DB_Company" EntityType="Self.DB_Company" />
+          <EntitySet Name="DB_Customer" EntityType="Self.DB_Customer" />
+          <EntitySet Name="DB_Customer_Type" EntityType="Self.DB_Customer_Type" />
+          <EntitySet Name="DB_Invoice" EntityType="Self.DB_Invoice" />
+          <EntitySet Name="DB_Invoice_Product" EntityType="Self.DB_Invoice_Product" />
+          <EntitySet Name="DB_Loyalty_Program" EntityType="Self.DB_Loyalty_Program" />
+          <EntitySet Name="DB_Product" EntityType="Self.DB_Product" />
+          <EntitySet Name="DB_Product_Log" EntityType="Self.DB_Product_Log" />
+          <AssociationSet Name="FK_DB_Customer_DB_Channel_Type" Association="Self.FK_DB_Customer_DB_Channel_Type">
+            <End Role="DB_Channel_Type" EntitySet="DB_Channel_Type" />
+            <End Role="DB_Customer" EntitySet="DB_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Invoice_DB_Company" Association="Self.FK_DB_Invoice_DB_Company">
+            <End Role="DB_Company" EntitySet="DB_Company" />
+            <End Role="DB_Invoice" EntitySet="DB_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Product_DB_Company" Association="Self.FK_DB_Product_DB_Company">
+            <End Role="DB_Company" EntitySet="DB_Company" />
+            <End Role="DB_Product" EntitySet="DB_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Customer_DB_Customer_Type" Association="Self.FK_DB_Customer_DB_Customer_Type">
+            <End Role="DB_Customer_Type" EntitySet="DB_Customer_Type" />
+            <End Role="DB_Customer" EntitySet="DB_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Customer_DB_Loyalty_Program" Association="Self.FK_DB_Customer_DB_Loyalty_Program">
+            <End Role="DB_Loyalty_Program" EntitySet="DB_Loyalty_Program" />
+            <End Role="DB_Customer" EntitySet="DB_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Invoice_Product_DB_Invoice" Association="Self.FK_DB_Invoice_Product_DB_Invoice">
+            <End Role="DB_Invoice" EntitySet="DB_Invoice" />
+            <End Role="DB_Invoice_Product" EntitySet="DB_Invoice_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Invoice_Product_DB_Invoice_Product" Association="Self.FK_DB_Invoice_Product_DB_Invoice_Product">
+            <End Role="DB_Product" EntitySet="DB_Product" />
+            <End Role="DB_Invoice_Product" EntitySet="DB_Invoice_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DB_Product_Log_DB_Product" Association="Self.FK_DB_Product_Log_DB_Product">
+            <End Role="DB_Product" EntitySet="DB_Product" />
+            <End Role="DB_Product_Log" EntitySet="DB_Product_Log" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BusiCloudModelStoreContainer" CdmEntityContainer="BusiCloudEntities">
+          <EntitySetMapping Name="DB_Channel_Type">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Channel_Type">
+              <MappingFragment StoreEntitySet="DB_Channel_Type">
+                <ScalarProperty Name="Channel_Type_Id" ColumnName="Channel_Type_Id" />
+                <ScalarProperty Name="Channel_Type_Name" ColumnName="Channel_Type_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_Company">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Company">
+              <MappingFragment StoreEntitySet="DB_Company">
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+                <ScalarProperty Name="Registration_No" ColumnName="Registration_No" />
+                <ScalarProperty Name="DateOfJoining" ColumnName="DateOfJoining" />
+                <ScalarProperty Name="Address_Office" ColumnName="Address_Office" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Address_Godown" ColumnName="Address_Godown" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_Customer">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Customer">
+              <MappingFragment StoreEntitySet="DB_Customer">
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Cutomer_Name" ColumnName="Cutomer_Name" />
+                <ScalarProperty Name="Customer_Type" ColumnName="Customer_Type" />
+                <ScalarProperty Name="Channel_Type" ColumnName="Channel_Type" />
+                <ScalarProperty Name="Loyalty_Program" ColumnName="Loyalty_Program" />
+                <ScalarProperty Name="Billing_Address" ColumnName="Billing_Address" />
+                <ScalarProperty Name="Route" ColumnName="Route" />
+                <ScalarProperty Name="Salesman" ColumnName="Salesman" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_Customer_Type">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Customer_Type">
+              <MappingFragment StoreEntitySet="DB_Customer_Type">
+                <ScalarProperty Name="Customer_Type_Id" ColumnName="Customer_Type_Id" />
+                <ScalarProperty Name="Customer_Type_Name" ColumnName="Customer_Type_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_Invoice">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Invoice">
+              <MappingFragment StoreEntitySet="DB_Invoice">
+                <ScalarProperty Name="Invoice_Id" ColumnName="Invoice_Id" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="DateOfPurchase" ColumnName="DateOfPurchase" />
+                <ScalarProperty Name="Vat" ColumnName="Vat" />
+                <ScalarProperty Name="Duty" ColumnName="Duty" />
+                <ScalarProperty Name="Grand_Total" ColumnName="Grand_Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_Invoice_Product">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Invoice_Product">
+              <MappingFragment StoreEntitySet="DB_Invoice_Product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Prod_Id" ColumnName="Prod_Id" />
+                <ScalarProperty Name="Invoice_Id" ColumnName="Invoice_Id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Mfg_Date" ColumnName="Mfg_Date" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Exp_Date" ColumnName="Exp_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_Loyalty_Program">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Loyalty_Program">
+              <MappingFragment StoreEntitySet="DB_Loyalty_Program">
+                <ScalarProperty Name="Loyalty_Program_Id" ColumnName="Loyalty_Program_Id" />
+                <ScalarProperty Name="Loyalty_Program_Name" ColumnName="Loyalty_Program_Name" />
+                <ScalarProperty Name="Profit_On_CP" ColumnName="Profit_On_CP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_Product">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Product">
+              <MappingFragment StoreEntitySet="DB_Product">
+                <ScalarProperty Name="Prod_Id" ColumnName="Prod_Id" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+                <ScalarProperty Name="MRP" ColumnName="MRP" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Expiry_Date_Months" ColumnName="Expiry_Date_Months" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DB_Product_Log">
+            <EntityTypeMapping TypeName="BusiCloudModel.DB_Product_Log">
+              <MappingFragment StoreEntitySet="DB_Product_Log">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Prod_Id" ColumnName="Prod_Id" />
+                <ScalarProperty Name="Stock_Live" ColumnName="Stock_Live" />
+                <ScalarProperty Name="Stock_Total_Incoming" ColumnName="Stock_Total_Incoming" />
+                <ScalarProperty Name="Stock_Total_Outgoing" ColumnName="Stock_Total_Outgoing" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

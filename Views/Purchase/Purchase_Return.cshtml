@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "Purchase_Return";
+   // ViewBag.msg = TempData["Message"];
+}
+
+<script>
+    if ('@TempData["Message"]' == true)
+    {
+       alert('@TempData["Message"]'); 
+    }
+
+</script> 
+
+
+
+<div class="row">
+    <div class="col-lg-2">
+        <p> Company : ITC PVT LMT</p>
+    </div>
+
+    <div class="col-lg-2">
+           
+    </div>
+
+    <div class="col-lg-2">
+    </div>
+
+    <div class="col-lg-2">
+    </div>
+
+    <div class="col-lg-2">
+    </div>
+
+    <div class="col-lg-2">
+        <input id="Invoice_Date1" class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" value="" placeholder="Invoice Date">
+    </div>
+
+</div>
+
+
+<form action="Purchase_Return_Submit" method="post">
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Product Return Entries
+                </header>
+                <table class="table table-striped table-advance table-hover ">
+                    <thead>
+                        <tr>
+                            <th><i class="icon-bullhorn"></i> Product Name </th>
+                            <th><i class="icon-question-sign"></i> Qty </th>
+                            <th class="hidden-phone"><i class="icon-bookmark"></i> Free </th>
+                            <th><i class=" icon-edit"></i> Rate </th>
+                            <th class="hidden-phone"><i class="icon-bullhorn"></i> Discount </th>
+                            <th class="hidden-phone"><i class="icon-bullhorn"></i> VAT % </th>
+                            <th><i class="icon-bullhorn"></i> Amount </th>
+                            <th>Action </th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="Purchase_Table"></tbody>
+                </table>
+            </section>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="Product">Product Name</label> <br />
+                <select class="form-control"
+                        data-val="true" data-val-number="The field DepotId must be a number."
+                        data-val-required="The DepotId field is required." id="Product_Name" name="Product_Name" tabindex="-1" aria-hidden="true"
+                        data-placeholder="Select Product">
+                    <option value="">Select Product</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-lg-1">
+            <div class="form-group">
+                <label for="NoOfHelper">Quantity</label>
+                <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Qty" name="Qty" placeholder="Quantity" type="number" value="0">
+                <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+
+        <div class="col-lg-1">
+            <div class="form-group">
+                <label for="NoOfHelper">Free</label>
+                <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Free" name="Free" placeholder="Free Product" type="number" value="0">
+                <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="col-lg-1">
+            <div class="form-group">
+                <label for="NoOfHelper">P.Rate</label>
+                <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Rate" name="Rate" placeholder="Rate of the product" type="number" step="any" value="0">
+                <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="col-lg-1">
+            <div class="form-group">
+                <label for="AppWeight">Discount</label>
+                <input class="form-control" data-val="true" data-val-number="The field AppWeight must be a number." data-val-required="The AppWeight field is required." id="Discount" name="Discount" placeholder="Discount on Product" type="number" step="any" value="0">
+                <span class="field-validation-valid" data-valmsg-for="AppWeight" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="col-lg-1">
+            <div class="form-group">
+                <label for="NoOfHelper">% VAT</label>
+                <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="VAT" name="VAT" placeholder="VAT on Product" type="number" step="any" value="0">
+                <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+
+            <div class="form-group">
+                <br />
+                <button type="button" id="Add_Product" class="btn btn-success" style="width:150px;"><i class="icon-cloud-upload"></i> Add Product</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <table>
+                <tr>
+                    <td>Total Amount : </td>
+                    <td id="Total_Amount"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="form-group">
+                <button type="submit" id="Submit_Purchase" class="btn btn-primary" style="width:150px;"><i class="icon-refresh"></i> Submit</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script src="~/Scripts/Purchase_Add.js"></script>
+
+<!-- For Search & Select -->
+<link href="~/assets/css/select2.min.css" rel="stylesheet" />
+<script src="~/Scripts/select2.min.js"></script>
+<!-- Date Picker For All Pages.-->
+<script src="~/assets/js/bootstrap-datepicker.js"></script>
+<script>
+        $('#Invoice_Date1').datepicker();
+        $('select').select2();
+
+</script>

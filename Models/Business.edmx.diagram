@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c7a29a4b285f408681d6429658780755" Name="Diagram1">
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Channel_Type" Width="1.5" PointX="7.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Company" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Customer" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Customer_Type" Width="1.5" PointX="7.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Invoice" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Invoice_Product" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Loyalty_Program" Width="1.5" PointX="7.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Product" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BusiCloudModel.DB_Product_Log" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="BusiCloudModel.FK_DB_Customer_DB_Channel_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="BusiCloudModel.FK_DB_Invoice_DB_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="BusiCloudModel.FK_DB_Product_DB_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="BusiCloudModel.FK_DB_Customer_DB_Customer_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="BusiCloudModel.FK_DB_Customer_DB_Loyalty_Program" ManuallyRouted="false" />
+        <AssociationConnector Association="BusiCloudModel.FK_DB_Invoice_Product_DB_Invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="BusiCloudModel.FK_DB_Invoice_Product_DB_Invoice_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="BusiCloudModel.FK_DB_Product_Log_DB_Product" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VishnuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="cid" />
+    </Key>
+    <Property Name="cid" Type="smallint" Nullable="false" />
+    <Property Name="Company_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Registration_No" Type="varchar" MaxLength="50" />
+    <Property Name="DateOfJoining" Type="smalldatetime" />
+    <Property Name="Address_Office" Type="varchar" MaxLength="50" />
+    <Property Name="Contact" Type="varchar" MaxLength="50" />
+    <Property Name="Address_Godown" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DB_Invoice">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="Invoice_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="cid" Type="smallint" Nullable="false" />
+    <Property Name="DateOfPurchase" Type="date" />
+    <Property Name="Vat" Type="float" />
+    <Property Name="Duty" Type="float" />
+    <Property Name="Grand_Total" Type="int" />
+  </EntityType>
+  <EntityType Name="DB_Invoice_Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="Prod_Id" Type="int" Nullable="false" />
+    <Property Name="Invoice_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quantity" Type="float" />
+    <Property Name="Unit" Type="varchar" MaxLength="50" />
+    <Property Name="Mfg_Date" Type="date" />
+    <Property Name="Rate" Type="float" />
+    <Property Name="Amount" Type="float" />
+    <Property Name="Exp_Date" Type="date" />
+  </EntityType>
+  <EntityType Name="DB_Sample">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="smallint" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="VishnuModelStoreContainer">
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DB_Invoice" EntityType="Self.DB_Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DB_Invoice_Product" EntityType="Self.DB_Invoice_Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DB_Sample" EntityType="Self.DB_Sample" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
