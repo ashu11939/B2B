@@ -9,7 +9,7 @@
         async: true,
         cache: false,
         success: function (list) {
-
+          
             for (var i = 0; i < list.length; i++) {
                 $('#Customer_Name').append("<option value=" + list[i].Customer_Id + ">" + list[i].Customer_Name + "</option>");
             }
@@ -18,6 +18,24 @@
         }
     });
       
+    //Select Salesman from Database
+    $.ajax({
+        url: '/Sales/Salesman_Details',
+        type: 'GET',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        cache: false,
+        success: function (list) {
+          
+            for (var i = 0; i < list.length; i++) {
+                $('#Customer_Salesman').append("<option value=" + list[i].id + ">" + list[i].Name + "</option>");
+            }
+
+            //cid = list[0].cid;
+        }
+    });
+
 
     //TO ADD SALES BILL SIMILAR FUNCTION TO PURCHASE
 
@@ -35,7 +53,7 @@
             for (var i = 0; i < list.length; i++) {
                 $('#Product_Name').append("<option value=" + list[i].Prod_Id + ">" + list[i].Product_Name + "</option>");
             }
-            debugger;
+            
             cid = list[0].cid;
         }
     });
@@ -48,15 +66,13 @@
 
     $('#Add_Product').click(function () {
 
-        debugger;
-
+        
         var Prod_Name = $('#Product_Name').find('option:selected').text();
         var Qty = $('#Qty').val();
         var Free = $('#Free').val();
         var Discount = $('#Discount').val();
         var Rate = $('#Rate').val();
         var VAT = $('#VAT').val();
-
         var Amount = Qty * Rate;
 
         Total_Amount += Amount;
@@ -83,16 +99,16 @@
     });
 
     $('#Cash_Payment').change(function () {
-
-        var Payable = $('#Total_Amount').val();
-        var Deposit = $('#Cash_Payment').val();
-        if (Payable > Deposit) {
-            $('#Dues').val(Payable - Deposit);
+        debugger;
+        
+        Deposit = $('#Cash_Payment').val();
+        if (Total_Amount > Deposit) {
+            $('#Dues').val(Total_Amount - Deposit);
             $('#Advance').val(0);
         }
         else {
             $('#Dues').val(0);
-            $('#Advance').val(Deposit - Payable);
+            $('#Advance').val(Deposit - Total_Amount);
         }
 
     })

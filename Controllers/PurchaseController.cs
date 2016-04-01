@@ -288,7 +288,6 @@ namespace Integrated_B2B.Controllers
             return Json(LInvoice_List, JsonRequestBehavior.AllowGet);
         }
 
-        //On Submiting the Modify button
         public JsonResult Modify_Invoice(string Invoice_Id)
         {
             
@@ -311,6 +310,7 @@ namespace Integrated_B2B.Controllers
             return Json(LModify_Purchase_List, JsonRequestBehavior.AllowGet);
         }
 
+        //TODO : On Submiting the Modify button after modifying.
         
         
         //PURCHASE RETURN 
@@ -352,7 +352,7 @@ namespace Integrated_B2B.Controllers
 
                 //If MRP of product changes then the required changes to change product.
 
-                var stock = query.Stock_Total_Incoming - Convert.ToInt32(Qty[i]);
+                var stock = query.Stock_Total_Incoming - Convert.ToInt32(Qty[i]);//Total Product bought till date - return from customer
                 if (stock >= 0)// TO CHECK THAT THE STOCK IS ALWAYS POSITIVE
                 {
 

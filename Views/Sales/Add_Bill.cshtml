@@ -1,4 +1,7 @@
-﻿
+﻿<!-- Improve Customer Details -->
+<!-- Implement Pagination in every table -->
+<!-- TODO :Remove row function from sales list-->
+
 @{
     ViewBag.Title = "Add_Bill";
 }
@@ -37,7 +40,7 @@
                 <label>Customer</label></br>
                 <select class="form-control"
                         data-val="true" id="Customer_Name" name="txtCustomer_Name" tabindex="-1" aria-hidden="true"
-                        data-placeholder="Select Customer" onchange="Select_Customer()">
+                         onchange="Select_Customer()">
                     <option value="">Select Customer</option>
                 </select>
             </div>
@@ -59,8 +62,14 @@
         </div>
 
         <div class="col-md-2">
-            <label>Salesman</label></br>
-            <input id="Customer_Salesman" name="txtSalesman" class="form-control" />
+            <div class="form-group">
+                <label>Salesman</label></br>
+                <select class="form-control"
+                        data-val="true" id="Customer_Salesman" name="txtSalesman" tabindex="-1" aria-hidden="true"
+                        data-placeholder="Select Salesman">
+                    <option value="">Select Salesman</option>
+                </select>
+            </div>
         </div>
 
         <div class="col-md-3">
@@ -108,7 +117,7 @@
                     <label for="Product">Product Name</label> <br />
                     <select class="form-control"
                             data-val="true" data-val-number="The field DepotId must be a number."
-                            data-val-required="The DepotId field is required." id="Product_Name" name="Product_Name" tabindex="-1" aria-hidden="true"
+                            data-val-required="The DepotId field is required." id="Product_Name" name="Prod_Name" tabindex="-1" aria-hidden="true"
                             data-placeholder="Select Product">
                         <option value="">Select Product</option>
                     </select>
@@ -127,7 +136,7 @@
             <div class="col-lg-1">
                 <div class="form-group">
                     <label for="NoOfHelper">Free</label>
-                    <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Free" name="Free" placeholder="Free Product" type="number" value="0">
+                    <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Free" name=Free" placeholder="Free Product" type="number" value="0">
                     <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
                 </div>
             </div>

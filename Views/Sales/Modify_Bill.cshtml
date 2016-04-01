@@ -1,0 +1,385 @@
+﻿
+@{
+    ViewBag.Title = "Modify_Bill";
+}
+
+<div class="row">
+    <div class="col-lg-2">
+        <p> Company : ITC PVT LMT</p>
+    </div>
+
+    <div class="col-lg-2">
+    </div>
+
+    <div class="col-lg-2">
+    </div>
+
+    <div class="col-lg-2">
+    </div>
+
+    <div class="col-lg-2">
+    </div>
+
+    <div class="col-lg-2">
+        <input id="Invoice_Date" class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" value="" placeholder="Invoice Date">
+    </div>
+
+</div>
+
+<div class="col-lg-12">
+    <section class="panel">
+        <header class="panel-heading">
+            Invoice
+        </header>
+        <table class="table table-striped table-advance table-hover" id="editable-sample">
+            <thead>
+                <tr>
+                    <th><i class="icon-bullhorn"></i> Invoice Id </th>
+                    <th><i class="icon-question-sign"></i> Invoice Date  </th>
+                    <th class="hidden-phone"><i class="icon-bookmark"></i> Invoice Entry Date </th>
+                    <th><i class="icon-bullhorn"></i> Total Amount </th>
+                    <th>Modify </th>
+                </tr>
+            </thead>
+
+            <tbody id="Invoice_Table"></tbody>
+        </table>
+    </section>
+</div>
+
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+    <div class="modal-dialog" style="width:80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                <h4 class="modal-title">Product List</h4>
+            </div>
+            <div class="modal-body">
+                <form action="Purchase_Modify_Submit" method="post">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Editable Table
+                        </header>
+                        <div class="panel-body">
+                            <div class="adv-table editable-table ">
+                                <div class="clearfix">
+
+                                    <div class="btn-group pull-right">
+                                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                                            Tools <i class="icon-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li><a href="#">Print</a></li>
+                                            <li><a href="#">Save as PDF</a></li>
+                                            <li><a href="#">Export to Excel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="space15"></div>
+                                <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                                    <thead>
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Qty</th>
+                                            <th>Free</th>
+                                            <th>P.Rate</th>
+                                            <th>Discount</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Modify_Invoice_Product"></tbody>
+                                </table>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="Product">Product Name</label> <br />
+                                        <select class="form-control"
+                                                data-val="true" data-val-number="The field DepotId must be a number."
+                                                data-val-required="The DepotId field is required." id="Product_Name" name="Product_Name" tabindex="-1" aria-hidden="true"
+                                                data-placeholder="Select Product">
+                                            <option value="">Select Product</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <div class="form-group">
+                                        <label for="NoOfHelper">Quantity</label>
+                                        <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Qty" name="Qty" placeholder="Quantity" type="number" value="0">
+                                        <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-1">
+                                    <div class="form-group">
+                                        <label for="NoOfHelper">Free</label>
+                                        <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Free" name="Free" placeholder="Free Product" type="number" value="0">
+                                        <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <div class="form-group">
+                                        <label for="NoOfHelper">P.Rate</label>
+                                        <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="Rate" name="Rate" placeholder="Rate of the product" type="number" step="any" value="0">
+                                        <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <div class="form-group">
+                                        <label for="AppWeight">Discount</label>
+                                        <input class="form-control" data-val="true" data-val-number="The field AppWeight must be a number." data-val-required="The AppWeight field is required." id="Discount" name="Discount" placeholder="Discount on Product" type="number" step="any" value="0">
+                                        <span class="field-validation-valid" data-valmsg-for="AppWeight" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <div class="form-group">
+                                        <label for="NoOfHelper">% VAT</label>
+                                        <input class="form-control" data-val="true" data-val-number="The field NoOfHelper must be a number." data-val-required="The NoOfHelper field is required." id="VAT" name="VAT" placeholder="VAT on Product" type="number" step="any" value="0">
+                                        <span class="field-validation-valid" data-valmsg-for="NoOfHelper" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+
+                                    <div class="form-group">
+                                        <br />
+                                        <button type="button" id="Add_Product" class="btn btn-success" style="width:150px;"><i class="icon-cloud-upload"></i> Add Product</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <table>
+                                <tr>
+                                    <td>Total Amount : </td>
+                                    <td id="Total_Amount"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <button type="submit" id="Submit_Modify" class="btn btn-primary" style="width:150px;"><i class="icon-refresh"></i> Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <script>
+                            //To delete a row
+                            $("body").on("click", ".delete1", function () {
+                                if (confirm("Want to delete?")) {
+                                    debugger;
+                                    var par = $(this).parent().parent(); //tr
+                                    par.remove();
+                                    //Retrieve data from the row present i.e. the Invoice ID & Prod_ID
+
+                                    return false;
+                                    //$.ajax({
+                                    //    url: '/Purchase/Delete_Invoice_Product',
+                                    //    data: '{"Invoice_Id":"' + Invoice_Id + '"}',
+                                    //    type: 'POST',
+                                    //    contentType: "application/json; charset=utf-8",
+                                    //    dataType: "json",
+                                    //    async: true,
+                                    //    cache: false,
+                                    //    success: function (list1) {
+
+                                    //});
+
+                                } else { return false; }
+                            });
+                </script>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- This page JS file.-->
+<script src="~/Scripts/Modify_Bill.js"></script>
+
+<!-- Date Picker -->
+<script src="~/assets/js/bootstrap-datepicker.js"></script>
+<script>
+    $('#Invoice_Date').datepicker();
+</script>
+
+<!-- Pagination Files -->
+<!-- SELECT 2 -->
+<link href="~/assets/css/select2.min.css" rel="stylesheet" />
+
+<!-- Modal Scripts -->
+<script>
+    $.getScript("/Scripts/select2.min.js");
+    $.getScript("/Scripts/angular.min.js");
+
+    $("body").on("click", ".modify_button", function () {
+
+
+        //To select products from available product list
+        $.ajax({
+            url: '/Purchase/Product_List',
+            type: 'GET',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            cache: false,
+            success: function (list) {
+
+                for (var i = 0; i < list.length; i++) {
+                    $('#Product_Name').append("<option value=" + list[i].Prod_Id + ">" + list[i].Product_Name + "</option>");
+                }
+
+                cid = list[0].cid;
+            }
+        });
+    });
+
+    //To Add a product detail.
+    var Total_Amount = 0;
+    $("body").on("click", "#Add_Product", function () {
+
+        //To add product after selecting.
+        //After Clicking.
+        var Prod_Name = $('#Product_Name').find('option:selected').text();
+        var Qty = $('#Qty').val();
+        var Free = $('#Free').val();
+        var Discount = $('#Discount').val();
+        var Rate = $('#Rate').val();
+        var VAT = $('#VAT').val();
+
+        var Amount = Qty * Rate;
+        //Total_Amount += Amount;
+        debugger;
+        var temp = parseFloat($('#Total_Amount').text());
+        temp += Amount;
+
+        var str = "";
+        str += "<tr>";
+        str += "<td>" + Prod_Name + "<input type='text' name='txtProd_Id' value='" + $('#Product_Name').val() + "' style='display:none' /></td>";
+        str += "<td>" + Qty + "<input type='text' name='txtQty' value='" + Qty + "' style='display:none' /></td>";
+        str += "<td class=" + "hidden-phone" + ">" + Free + "<input type='text' name='txtFree' value='" + Free + "' style='display:none' /></td>";
+        str += "<td>" + Rate + "<input type='text' name='txtRate' value='" + Rate + "' style='display:none' /></td>";
+        str += "<td class=" + "hidden-phone" + ">" + Discount + "<input type='text' name='txtDiscount' value='" + Discount + "' style='display:none' /></td>";
+        str += "<input type='hidden' name='txtVAT' value='" + VAT + "' style='display:none' />";
+        str += "<td>" + Amount + "<input type='text' name='txtAmount' value='" + Amount + "' style='display:none' /></td>";
+        str += "<input type='hidden' name='txtTotal_Amount' value='" + temp + "' style='display:none' />";
+        str += '<td> <button id="save" class="btn btn-success btn-xs" onclick="return false"><i class="icon-ok"></i></button> <button id="modify" class="btn btn-primary btn-xs" onclick="return false" ><i class="icon-pencil"></i></button> <button id="delete" class="btn btn-danger btn-xs delete1" onclick="return confirm( "Are you sure want to delete" )" ><i class="icon-trash "></i></button> </td></tr>';
+        $('#Modify_Invoice_Product').append(str);
+        $('#Total_Amount').html(temp);
+
+    });
+
+    //To modify an existing row.
+    $("body").on("click", "#modify", function(){
+        debugger;
+        var par = $(this).parent().parent(); //tr
+        var td_Product_name = par.children("td:nth-child(1)");
+        var td_Qty = par.children("td:nth-child(2)");
+        var td_Free = par.children("td:nth-child(3)");
+        var td_Rate = par.children("td:nth-child(4)");
+        var td_Discount = par.children("td:nth-child(5)");
+        var td_Amount = par.children("td:nth-child(6)");
+
+        //td_Product_name.html("<input type='text' id='txtName' value='" + td_Product_name.html() + "'/>");
+        td_Qty.html("<input type='text' class='form-control' id='txtPhone' value='" + td_Qty.text() + "'/>");
+        td_Free.html("<input type='text' class='form-control' id='txtEmail' value='" + td_Free.text() + "'/>");
+        td_Discount.html("<input type='text' class='form-control' id='txtEmail' value='" + td_Discount.text() + "'/>");
+        td_Rate.html("<input type='text' class='form-control' id='txtEmail' value='" + td_Rate.text() + "'/>");
+        td_Amount.html(" ");
+
+    });
+
+    //To Save an existing row.
+    $("body").on("click", "#save", function () {
+        debugger;
+        var par = $(this).parent().parent(); //tr
+        //var td_Product_name = par.children("td:nth-child(1)");
+        var td_Qty = par.children("td:nth-child(2)");
+        var td_Free = par.children("td:nth-child(3)");
+        var td_Rate = par.children("td:nth-child(4)");
+        //var td_Rate = par.children("td:nth-child(5)").val();
+        var td_Discount = par.children("td:nth-child(5)");
+        var td_Amount = par.children("td:nth-child(6)");
+        var Rate = parseFloat(td_Rate.children("input[type=text]").val());
+        var Qty = parseFloat(td_Qty.children("input[type=text]").val());
+        if (!Rate && !Qty) {
+            Rate = parseFloat(td_Rate.text());
+            Qty = parseFloat(td_Qty.text());
+        }
+        //var abc = td_Qty.children("input[type=text]").val();
+
+        td_Qty.html(td_Qty.children("input[type=text]").val());
+        td_Free.html(td_Free.children("input[type=text]").val());
+        td_Discount.html(td_Discount.children("input[type=text]").val());
+        td_Rate.html(td_Rate.children("input[type=text]").val());
+        var Amount = Qty * Rate;
+        td_Amount.html(Amount);
+
+
+    });
+
+</script>
+
+<script>
+    //Add new Button
+
+    //$("#editable-sample_new").click(function () {
+
+    //    //debugger;
+    //    var exp = '<tr><td><select class="Product_Name form-control" data-val="true" data-val-number="The field DepotId must be a number." data-val-required="The DepotId field is required." name="Product_Name" tabindex="-1" aria-hidden="true" data-placeholder="Select Product"><option value="">Select Product</option> </td>'
+    //    exp += '<td> <input class="form-control" id="Qty" name="Qty" ng-model="Qty" placeholder="Quantity" type="number"  value="0"></td>'
+    //    exp += '<td> <input class="form-control" id="Free" name="Free" ng-model="Free" placeholder="Free Product" type="number" value="0"> </td>'
+    //    exp += '<td> <input class="form-control" id="Rate" name="Rate" ng-model="Rate" placeholder="Rate of the product" type="number" step="any" value="0"> </td>'
+    //    exp += '<td> <input class="form-control" id="Discount" name="Discount" ng-model="Discount" placeholder="Discount on Product" type="number" step="any" value="0"> </td>'
+    //    //exp += '<td> <input class="form-control" id="VAT" name="VAT" placeholder="VAT on Product" ng-model="VAT" type="number" step="any" value="0"> </td>'
+    //    exp += '<td> {{ Qty }} <input class="form-control" id="Amount" name="Amount" placeholder="Amount" type="number" step="any" value="0"></td>'
+    //    exp += '<td> <button id="save" class="btn btn-success btn-xs"><i class="icon-ok"></i></button> <button id="modify" class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button> <button id="delete" class="btn btn-danger btn-xs delete1"><i class="icon-trash "></i></button> </td></tr>'
+    //    var exp1 = "<tr><td>Hisexy</td></tr>";
+
+    //    $("#Modify_Invoice_Product").append(exp);
+    //    //$("#save").bind("click", Save);
+    //    //$("#delete").bind("click", Delete);
+
+    //    $.ajax({
+    //        url: '/Purchase/Product_List',
+    //        type: 'GET',
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        async: true,
+    //        cache: false,
+    //        success: function (list) {
+
+    //            for (var i = 0; i < list.length; i++) {
+    //                $('.Product_Name').append("<option value=" + list[i].Prod_Id + ">" + list[i].Product_Name + "</option>");
+    //            }
+    //            //debugger;
+    //        }
+    //    });
+
+    //});
+
+</script>
+
+
+
+
+
+
+

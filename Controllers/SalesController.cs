@@ -12,6 +12,7 @@ namespace Integrated_B2B.Controllers
         // GET: Sales
         BusiCloudEntities database = new BusiCloudEntities();
 
+        //__________ADD_SALES_BILL_________________________________________________
         public ActionResult Add_Bill()
         {
             return View();
@@ -63,8 +64,25 @@ namespace Integrated_B2B.Controllers
 
         }
 
-        //Sales Bill Submit
+        
+        //GET Salesman Details
+        public JsonResult Salesman_Details()
+        {
+            List<Salesman_Details> lSalesman_Details = new List<Salesman_Details>();
+            lSalesman_Details = 
+                (from a in database.DB_Sales_Man
+                 where a.Designation == "Salesman"
+                 select new Salesman_Details 
+                 {
+                    id = a.id,
+                    Name = a.Name
+                 }).ToList();
 
+            return Json(lSalesman_Details, JsonRequestBehavior.AllowGet);
+          
+        }
+
+        //Sales Bill Submit
         public ActionResult Sales_Submit()
         {
         
@@ -138,8 +156,8 @@ namespace Integrated_B2B.Controllers
             Sales_Bill.Dues = Convert.ToDouble(Dues[0]);
             Sales_Bill.Advance = Convert.ToString(Advance[0]); //Change in database string to double.
             Sales_Bill.Customer_Id = Convert.ToInt32(Customer_Id[0]);
-            //TODO : Add Sales Man in database @deadline : before sunday @reminder: 1 day
-
+            Sales_Bill.Sales_Man_Id = Convert.ToInt32(Salesman[0]);
+            
             database.DB_Sales_Bill.Add(Sales_Bill);
 
             //DB_Sales_Bill_Product Insertion            
@@ -154,7 +172,7 @@ namespace Integrated_B2B.Controllers
                 Sales_Bill_Product.Amount = Convert.ToDouble(Amount[i]);
                 Sales_Bill_Product.Scheme = Convert.ToDouble(Free[i]);
                 Sales_Bill_Product.Discount = Convert.ToDouble(Discount[i]);
-
+                
                 database.DB_Sales_Bill_Product.Add(Sales_Bill_Product);
 
                 try
@@ -167,19 +185,67 @@ namespace Integrated_B2B.Controllers
                     Console.WriteLine(e);
                 }
 
-
+                //TODO : Save changes when all transactions satisfy
             }
             return RedirectToAction("Add_Bill", "Sales");
 
         }
 
 
+        //_______MODIFY______________________________________________________________Sales Bill Modify
 
+        public ActionResult Modify_Bill()
+        {
+            return View();
+        }
 
+        //Sales Bill Lists   TODO: Implement Pagination
+        public JsonResult Sales_Bill_List()
+        {
 
+            List<Sales_Bill> LSales_Bill = new List<Sales_Bill>();
 
+            LSales_Bill =
+                (from a in database.DB_Sales_Bill
+                 orderby a.DateTime descending
+                 select new Sales_Bill
+                 {
+                     Bill_No = a.Bill_No,
+                     DateTime = a.DateTime,
+                     Total_Amount = a.Total_Amount
+                 }).ToList();
 
+            return Json(LSales_Bill, JsonRequestBehavior.AllowGet);
+        }
 
+        //On Clicking on any Sales Bill - Modify. To represent relevant data.
+        public JsonResult Modify_Sales_Bill(string Bill_No)
+        {
 
+            List<Modify_Sales_Bill_List> lModify_Sales_Bill_List = new List<Modify_Sales_Bill_List>();
+
+            lModify_Sales_Bill_List =
+                (from a in database.DB_Sales_Bill_Product
+                 join b in database.DB_Product on a.Prod_Id equals b.Prod_Id
+                 where a.Bill_No == Bill_No
+                 select new Modify_Sales_Bill_List
+                 {
+                     Prod_Id = a.Prod_Id,
+                     Product_Name = b.Product_Name,
+                     Quantity = a.Qty,
+                     Rate = a.Rate,
+                     Amount = a.Amount
+                     //Include Free and discount field in the table.                      
+                 }).ToList();
+
+            return Json(lModify_Sales_Bill_List, JsonRequestBehavior.AllowGet);
+        }
+
+        //TODO - Submit Code after Modifying Sales Bill.
+
+        
+        //__________RETURN SALES BILL_______________________________________________
+        //Same Functionality as the purchase one. We make changes in DB_Product_Log to exhibit the changes.
+        
     }
 }
