@@ -212,12 +212,35 @@
 
 </form>
 
+<script>
+    $("body").on("click", ".delete_row", function () {
+        if (confirm("Want to delete?")) {
+            debugger;
+            var par = $(this).parent(); //tr
+            par.remove();
+            //Retrieve data from the row present i.e. the Invoice ID & Prod_ID
 
+            return false;
+            //$.ajax({
+            //    url: '/Purchase/Delete_Invoice_Product',
+            //    data: '{"Invoice_Id":"' + Invoice_Id + '"}',
+            //    type: 'POST',
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "json",
+            //    async: true,
+            //    cache: false,
+            //    success: function (list1) {
 
+            //});
+
+        } else { return false; }
+    });
+
+</script>
 
 
 <!-- For Search & Select -->
-<link href="~/assets/css/select2.min.css" rel="stylesheet" />
+<link href="../assets/css/select2.min.css" rel="stylesheet" />
 <script src="~/Scripts/select2.min.js"></script>
 <!-- Date Picker For All Pages.-->
 <script src="~/assets/js/bootstrap-datepicker.js"></script>

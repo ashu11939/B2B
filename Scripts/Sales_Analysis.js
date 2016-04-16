@@ -30,6 +30,17 @@
                     }
                 });
 
+                $('#totalproductstoday').html("<h1 id=" + "inc_products" + " >" + list.Total_Products + "</h1>");
+                $({ someValue: 0 }).animate({ someValue: list.Total_Products }, {
+                    duration: 1000,
+                    easing: 'swing', // can be anything
+
+                    step: function () { // called on every step
+                        // Update the element's text with rounded-up value:
+                        $('#inc_products').text(Math.ceil(this.someValue));
+                    }
+                });
+
                 $('#totaladvancetoday').html("<h1 id=" + "inc_advance" + " >" + list.Advance + "</h1>");
                 $({ someValue: 0 }).animate({ someValue: list.Advance }, {
                     duration: 1000,

@@ -154,12 +154,23 @@ namespace Integrated_B2B.Controllers
             Sales_Bill.Total_Amount = Convert.ToDouble(Total_Amount[Total_Amount.Length - 1]);
             Sales_Bill.Deposit = Convert.ToDouble(Cash_Payment[0]);
             Sales_Bill.Dues = Convert.ToDouble(Dues[0]);
-            Sales_Bill.Advance = Convert.ToString(Advance[0]); //Change in database string to double.
+            Sales_Bill.Advance = Convert.ToDouble(Advance[0]); 
             Sales_Bill.Customer_Id = Convert.ToInt32(Customer_Id[0]);
             Sales_Bill.Sales_Man_Id = Convert.ToInt32(Salesman[0]);
             
             database.DB_Sales_Bill.Add(Sales_Bill);
 
+            var CustomerID = Convert.ToInt32(Customer_Id[0]);
+            DB_Customer Customer = new DB_Customer();
+            Customer =   
+                (from a in database.DB_Customer
+                 where a.Customer_Id == CustomerID
+                 select a).FirstOrDefault();
+
+            //Cash_log += Deposit - Total_Amount;
+            if(Customer.Cash_Log == null) Customer.Cash_Log = 0; //For 1st entry corner case
+            Customer.Cash_Log = Customer.Cash_Log + (Convert.ToDouble(Cash_Payment[0]) -  Convert.ToDouble(Total_Amount[Total_Amount.Length - 1]));
+            
             //DB_Sales_Bill_Product Insertion            
             for (int i = 0; i < Prod_Name.Length; i++)
             {

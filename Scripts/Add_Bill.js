@@ -89,7 +89,7 @@
         //str += "<input type='hidden' name='txtAmount' value='" + Amount + "' style='display:none' />";
         str += "<input type='hidden' name='txtcid' value='" + cid + "' style='display:none' />";
         str += "<td>" + Amount + "<input type='text' name='txtAmount' value='" + Amount + "' style='display:none' /></td>";
-        str += "<td class='ImgRemove' style=" + "cursor:pointer"
+        str += "<td class='delete_row ImgRemove' style=" + "cursor:pointer"
             + " onclick=" + "Remove(this)" + "><i class="
             + "icon-remove" + "></i>" + "</td>"
         str += "</tr>";

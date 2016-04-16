@@ -39,6 +39,14 @@ namespace Integrated_B2B.Controllers
 
             }
 
+            //Products Sold.
+            Live_Data.Total_Products = 
+                (from a in database.DB_Sales_Bill
+                 join b in database.DB_Sales_Bill_Product on a.Bill_No equals b.Bill_No
+                 where EntityFunctions.TruncateTime(a.DateTime) == EntityFunctions.TruncateTime(indianTime)
+                 select b.Prod_Id
+                ).Distinct().Count();
+
 
 
             return Json(Live_Data, JsonRequestBehavior.AllowGet);

@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Collection System";
+}
+
+<!-- ##################### Remove Jquery Mobile just use responsive web page to feed in the data ##############################  .-->
+<!-- ####### TODO : Layout for mobile devices ##############-->
+
+<form action="Collection_Submit" method="post">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Salesman</label></br>
+                <select class="form-control" data-val="true" id="Collection_Salesman" name="Salesman" tabindex="-1" aria-hidden="true">
+                    <option value="">Select Salesman</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Customer</label></br>
+                <select class="form-control" data-val="true" id="Collection_Customer" name="Customer" tabindex="-1" aria-hidden="true" onchange="getLocation()">
+                    <option value=" ">
+                    Select Customer</option>
+                </select>
+            </div>
+            <label for="Cash">Amount</label>
+            <input type="number" step="any" name="Amount" id="Amount" class="form-control"><br/>
+            
+            <input type="hidden" step="any" name="Latitude" id="Latitude">
+            <input type="hidden" step="any" name="Longitude" id="Longitude">
+            
+            <div class="form-group">
+                <button type="submit" id="Submit_Collection" class="btn btn-primary" style="width:150px;" ><i class="icon-refresh"></i> Submit</button>
+            </div>
+        </div>
+    </div>
+</form> 
+
+<!-- For Search & Select -->
+<link href="~/assets/css/select2.min.css" rel="stylesheet" />
+<script src="~/Scripts/select2.min.js"></script>
+
+<script>
+    
+    $('select').select2();
+    //Select Salesman Details From Database
+    $.ajax({
+        url: '/Sales/Salesman_Details',
+        type: 'GET',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        cache: false,
+        success: function (list) {
+
+            for (var i = 0; i < list.length; i++) {
+                $('#Collection_Salesman').append("<option value=" + list[i].id + ">" + list[i].Name + "</option>");
+            }
+
+            //cid = list[0].cid;
+        }
+    });
+
+    //Select Customer Details From database.
+    $.ajax({
+        url: '/Sales/Customer_Details',
+        type: 'GET',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        cache: false,
+        success: function (list) {
+
+            for (var i = 0; i < list.length; i++) {
+                $('#Collection_Customer').append("<option value=" + list[i].Customer_Id + ">" + list[i].Customer_Name + "</option>");
+            }
+
+            //cid = list[0].cid;
+        }
+    });
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        $("#Latitude").val(position.coords.latitude);
+        $("#Longitude").val(position.coords.longitude);
+    }
+        
+    
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
